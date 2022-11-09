@@ -9,7 +9,7 @@ import Base.BaseClass;
 public class DataDrivenTest extends BaseClass {
          
 	     
-	    @Test(dataProvider="Credentials")
+	    @Test(dataProvider="Credentials1")
 	    public void logintest(String username, String password) {
 		
 		driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[1]/div/div[2]/input")).sendKeys(username);

@@ -6,10 +6,12 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 
+import com.utility.NewExcelLibrary;
+
 public class BaseClass {
 	
-
 	public WebDriver driver;
+	NewExcelLibrary obj = new NewExcelLibrary("C:\\Users\\Rahul\\eclipse-workspace\\DataDriven\\TestData\\User.xlsx");
 	
 	@BeforeMethod
 	public void setup() throws InterruptedException {
@@ -20,6 +22,7 @@ public class BaseClass {
 		driver.manage().window().maximize();
 		driver.get("https://opensource-demo.orangehrmlive.com/");
 		Thread.sleep(5000);
+		
 		
 	}
 	
@@ -43,6 +46,25 @@ public class BaseClass {
 		data[2][0]="Admin";
 		data[2][1]="admin123";
 		
+		return data;
+	}
+	
+	@DataProvider(name="Credentials1")
+	public Object [][] getExcelData() {
+	  
+		//Total Row Count
+		int rows =obj.getRowCount("Data");
+		//Total Columns
+		int columns = obj.getColumnCount("Data");
+		int actRows = rows-1;
+		
+		Object [][]data = new Object[actRows][columns];
+		
+		for(int i=0; i<actRows; i++) {
+			for(int j =0; j<columns; j++) {
+				data[i][j]= obj.getCellData("Data", j, i+2);
+			}	
+		}
 		return data;
 	}
 }
